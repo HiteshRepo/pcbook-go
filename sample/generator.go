@@ -59,16 +59,6 @@ func NewGPU() *pb.GPU {
 	return gpu
 }
 
-// NewRAM returns a new sample ram
-func NewRAM() *pb.Memory {
-	ram := &pb.Memory{
-		Value: uint64(randomInt(4, 64)),
-		Unit:  pb.Memory_GIGABYTE,
-	}
-
-	return ram
-}
-
 // NewSSD returns a new sample ssd
 func NewSSD() *pb.Storage {
 	ssd := &pb.Storage{
@@ -109,6 +99,18 @@ func NewScreen() *pb.Screen {
 	return screen
 }
 
+// NewRAM returns a new sample RAM
+func NewRAM() *pb.Memory {
+	memGB := randomInt(4, 64)
+
+	ram := &pb.Memory{
+		Value: uint64(memGB),
+		Unit:  pb.Memory_GIGABYTE,
+	}
+
+	return ram
+}
+
 // New Laptop returns a new sample laptop
 func NewLaptop() *pb.Laptop {
 
@@ -119,6 +121,7 @@ func NewLaptop() *pb.Laptop {
 		Id:       randomUUID(),
 		Name:     name,
 		Brand:    brand,
+		Ram:      NewRAM(),
 		Cpu:      NewCPU(),
 		Gpus:     []*pb.GPU{NewGPU()},
 		Storages: []*pb.Storage{NewSSD(), NewHDD()},
